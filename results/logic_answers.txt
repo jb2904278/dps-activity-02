@@ -1,0 +1,94 @@
+======================================================================
+Q2  Valid, unsatisfiable, or neither?
+======================================================================
+
+(a) Smoke ⇒ Fire
+
+Fire | Smoke | Sentence
+-----+-------+---------
+T    | T     | T       
+T    | F     | T       
+F    | T     | F       
+F    | F     | T       
+
+=> SATISFIABLE BUT NOT VALID (NEITHER)
+
+(b) ((Smoke ∧ Heat) ⇒ Fire) ⇔ ((Smoke ⇒ Fire) ∨ (Heat ⇒ Fire))
+
+Fire | Heat | Smoke | (Smoke ∧ Heat) ⇒ Fire | (Smoke ⇒ Fire) ∨ (Heat ⇒ Fire) | Sentence
+-----+------+-------+-----------------------+--------------------------------+---------
+T    | T    | T     | T                     | T                              | T       
+T    | T    | F     | T                     | T                              | T       
+T    | F    | T     | T                     | T                              | T       
+T    | F    | F     | T                     | T                              | T       
+F    | T    | T     | F                     | F                              | T       
+F    | T    | F     | T                     | T                              | T       
+F    | F    | T     | T                     | T                              | T       
+F    | F    | F     | T                     | T                              | T       
+
+=> VALID
+
+======================================================================
+Q3  Number of models over the vocabulary {A, B, C, D}
+======================================================================
+
+(a) B ∨ C
+    models: 12 of 16
+      A=T  B=T  C=T  D=T
+      A=T  B=T  C=T  D=F
+      A=T  B=T  C=F  D=T
+      A=T  B=T  C=F  D=F
+      A=T  B=F  C=T  D=T
+      A=T  B=F  C=T  D=F
+      A=F  B=T  C=T  D=T
+      A=F  B=T  C=T  D=F
+      A=F  B=T  C=F  D=T
+      A=F  B=T  C=F  D=F
+      A=F  B=F  C=T  D=T
+      A=F  B=F  C=T  D=F
+
+(b) (A ⇒ B) ∧ A ∧ ¬B ∧ C ∧ D
+    models: 0 of 16
+
+======================================================================
+Q4  [(Food ⇒ Party) ∨ (Drinks ⇒ Party)] ⇒ [(Food ∧ Drinks) ⇒ Party]
+======================================================================
+
+(a) Enumeration
+
+Drinks | Food | Party | (Food ⇒ Party) ∨ (Drinks ⇒ Party) | (Food ∧ Drinks) ⇒ Party | Sentence
+-------+------+-------+-----------------------------------+-------------------------+---------
+T      | T    | T     | T                                 | T                       | T       
+T      | T    | F     | F                                 | F                       | T       
+T      | F    | T     | T                                 | T                       | T       
+T      | F    | F     | T                                 | T                       | T       
+F      | T    | T     | T                                 | T                       | T       
+F      | T    | F     | T                                 | T                       | T       
+F      | F    | T     | T                                 | T                       | T       
+F      | F    | F     | T                                 | T                       | T       
+
+=> VALID
+
+(b) CNF of each side
+
+  Left-hand side:
+    Original                                                (Food ⇒ Party) ∨ (Drinks ⇒ Party)
+    2. Eliminate ⇒: α ⇒ β ≡ ¬α ∨ β                          (¬Food ∨ Party) ∨ (¬Drinks ∨ Party)
+    5. Simplify: drop repeated literals and tautologies     ¬Drinks ∨ ¬Food ∨ Party
+
+  Right-hand side:
+    Original                                                (Food ∧ Drinks) ⇒ Party
+    2. Eliminate ⇒: α ⇒ β ≡ ¬α ∨ β                          ¬(Food ∧ Drinks) ∨ Party
+    3. Move ¬ inwards (De Morgan, double negation)          (¬Food ∨ ¬Drinks) ∨ Party
+    5. Simplify: drop repeated literals and tautologies     ¬Drinks ∨ ¬Food ∨ Party
+
+(c) Resolution: prove the sentence is valid by showing ¬(sentence) is unsatisfiable
+     1. Food                             (from ¬sentence in CNF)
+     2. Drinks                           (from ¬sentence in CNF)
+     3. ¬Drinks ∨ ¬Food ∨ Party          (from ¬sentence in CNF)
+     4. ¬Party                           (from ¬sentence in CNF)
+     5. ¬Drinks ∨ ¬Food                  (resolve 3 and 4)
+     6. ¬Food                            (resolve 2 and 5)
+     7. { }  (empty clause)              (resolve 1 and 6)
+
+=> empty clause derived: True  ->  the sentence is VALID

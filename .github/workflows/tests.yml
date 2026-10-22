@@ -1,0 +1,26 @@
+name: Run tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Unit tests
+        run: python -m unittest discover -s tests -t . -v
+      - name: Q1 demo - move for the double-threat position
+        run: python -m connect4.play --position double_threat --cycles 500 --seed 1
+      - name: Q1 experiments - quick smoke run
+        run: python -m connect4.experiments --quick --out ci_results
+      - name: Q2-Q4 working
+        run: python -m logic.answers

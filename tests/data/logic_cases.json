@@ -1,0 +1,11 @@
+[
+  {"sentence": "Smoke ==> Fire", "class": "satisfiable but not valid (neither)"},
+  {"sentence": "((Smoke & Heat) ==> Fire) <=> ((Smoke ==> Fire) | (Heat ==> Fire))", "class": "valid"},
+  {"sentence": "((Food ==> Party) | (Drinks ==> Party)) ==> ((Food & Drinks) ==> Party)", "class": "valid"},
+  {"sentence": "(A ==> B) & A & ~B & C & D", "class": "unsatisfiable"},
+  {"sentence": "A | ~A", "class": "valid"},
+  {"sentence": "A & ~A", "class": "unsatisfiable"},
+  {"sentence": "(Smoke ==> Fire) ==> (~Smoke ==> ~Fire)", "class": "satisfiable but not valid (neither)"},
+  {"sentence": "(Smoke ==> Fire) ==> (~Fire ==> ~Smoke)", "class": "valid"},
+  {"sentence": "Big | Dumb | (Big ==> Dumb)", "class": "valid"}
+]
