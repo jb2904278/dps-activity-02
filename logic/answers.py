@@ -9,6 +9,11 @@ all computed by logic.py. Run from the Activity_02 folder:
 import argparse
 import io
 
+if __package__ in (None, ""):          # allow "Run/Debug Python File" on this file directly
+    import os, sys
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    __package__ = "logic"
+
 from .logic import (Expr, classify, count_models, expr, pl_resolution, show_clause,
                     to_cnf_steps, truth_table)
 

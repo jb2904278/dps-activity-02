@@ -22,6 +22,11 @@ import time
 from collections import Counter
 from dataclasses import asdict, replace
 
+if __package__ in (None, ""):          # allow "Run/Debug Python File" on this file directly
+    import os, sys
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    __package__ = "connect4"
+
 from .game import ConnectFour
 from .mcts import MCTS, MCTSConfig
 from .positions import POSITIONS, load

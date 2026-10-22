@@ -1,0 +1,54 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "MCTS: double_threat, small (walkthrough settings)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "connect4.play",
+      "args": ["--position", "double_threat", "--cycles", "10", "--k", "3", "--depth", "2", "--seed", "1"],
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "MCTS: empty board, default settings",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "connect4.play",
+      "args": ["--seed", "1"],
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Play against MCTS (you are X)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "connect4.play",
+      "args": ["--human", "--cycles", "500"],
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Run all tests",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "unittest",
+      "args": ["discover", "-s", "tests", "-t", ".", "-v"],
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Q2-Q4: print logic working",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "logic.answers",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
