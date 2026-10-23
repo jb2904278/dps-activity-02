@@ -296,10 +296,12 @@ def main(argv=None):
     p.add_argument("--quick", action="store_true", help="tiny run for a smoke test")
     p.add_argument("--trials", type=int, default=30, help="seeds per measurement")
     p.add_argument("--games", type=int, default=20, help="games per match-up")
-    p.add_argument("--out", default="results")
+    p.add_argument("--out", default=None, help="output folder (default: results, or results_quick with --quick)")
     p.add_argument("--charts-only", action="store_true", help="redraw charts from existing CSVs")
     p.add_argument("--only", default="ABCDEF", help="which experiments to run, e.g. A,B or E")
     args = p.parse_args(argv)
+    if args.out is None:                       # --quick never overwrites the report data in results/
+        args.out = "results_quick" if args.quick else "results"
 
     if args.charts_only:
         names = ["B_cycles", "C_utility", "D_expansion", "E_height", "F_matches"]

@@ -22,7 +22,8 @@ def pick(rows, **match):
     for r in rows:
         if all(str(r[k]) == str(v) for k, v in match.items()):
             return r
-    raise KeyError(match)
+    raise SystemExit("\nThis folder does not hold the full experiment data (missing {}).\n"
+                     "It was probably written by a --quick run. Re-run: python3 -m connect4.experiments".format(match))
 
 
 def f2(x):

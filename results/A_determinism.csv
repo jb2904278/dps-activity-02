@@ -1,5 +1,5 @@
 label,cycles,expand_k,max_depth,c,w,expansion_order,position,accuracy,mode_move,mode_share,distinct,moves,ms,tree
-baseline,200,7,42,1.4142135623730951,0.5,heuristic,empty,,3,0.333,3,3:1 4:1 5:1,46.2,201.0
-baseline,200,7,42,1.4142135623730951,0.5,heuristic,win_in_1,1.0,3,1.0,1,3:3,13.0,85.3
-baseline,200,7,42,1.4142135623730951,0.5,heuristic,must_block,1.0,3,1.0,1,3:3,32.8,168.7
-baseline,200,7,42,1.4142135623730951,0.5,heuristic,double_threat,1.0,4,0.667,2,1:1 4:2,34.5,195.7
+baseline,200,7,42,1.4142135623730951,0.5,heuristic,empty,,3,0.6,6,1:1 2:4 3:18 4:4 5:1 6:2,89.5,201.0
+baseline,200,7,42,1.4142135623730951,0.5,heuristic,win_in_1,1.0,3,1.0,1,3:30,26.2,79.0
+baseline,200,7,42,1.4142135623730951,0.5,heuristic,must_block,1.0,3,1.0,1,3:30,60.3,164.0
+baseline,200,7,42,1.4142135623730951,0.5,heuristic,double_threat,1.0,4,0.7,2,1:9 4:21,60.5,196.7
