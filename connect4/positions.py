@@ -18,7 +18,7 @@ POSITIONS = {
                  ".......",
                  "OO.....",
                  "XXX...O"],
-        "best": [3],
+        "best": [3], # X should play in column 3 to win   
         "note": "X completes four in a row on the bottom row",
     },
     "must_block": {

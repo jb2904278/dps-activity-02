@@ -57,14 +57,14 @@ def play_human(cfg):
 
 def main(argv=None):
     p = argparse.ArgumentParser(description="Monte Carlo tree search for Connect Four")
-    p.add_argument("--position", choices=sorted(POSITIONS), default="empty")
-    p.add_argument("--rows", nargs=6, metavar="ROW", help="6 rows, top first, using X O and .")
-    p.add_argument("--cycles", type=int, default=1000)
-    p.add_argument("--k", type=int, default=7, help="expansion width x (children per node)")
-    p.add_argument("--depth", type=int, default=42, help="tree height")
-    p.add_argument("--c", type=float, default=1.41, help="exploration weight")
-    p.add_argument("--w", type=float, default=0.5, help="objective (heuristic) weight")
-    p.add_argument("--order", choices=["heuristic", "random"], default="heuristic")
+    p.add_argument("--position", choices=sorted(POSITIONS), default="empty") # which starting board to analyse
+    p.add_argument("--rows", nargs=6, metavar="ROW", help="6 rows, top first, using X O and .") # can also provide custom board
+    p.add_argument("--cycles", type=int, default=1000) # number of iterations
+    p.add_argument("--k", type=int, default=7, help="expansion width x (children per node)") # number of children to expand
+    p.add_argument("--depth", type=int, default=42, help="tree height") # max depth of tree
+    p.add_argument("--c", type=float, default=1.41, help="exploration weight") # exploration weight
+    p.add_argument("--w", type=float, default=0.5, help="objective (heuristic) weight") # objective weight
+    p.add_argument("--order", choices=["heuristic", "random"], default="heuristic") # order of expansion
     p.add_argument("--seed", type=int, default=None)
     p.add_argument("--human", action="store_true", help="play a game against the computer")
     args = p.parse_args(argv)

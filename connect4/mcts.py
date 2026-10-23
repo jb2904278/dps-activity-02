@@ -69,9 +69,7 @@ class MCTS:
         self.game = game or ConnectFour()
         self.rng = random.Random(self.config.seed)
 
-    # ------------------------------------------------------------------ #
-    # Figure 5.11
-    # ------------------------------------------------------------------ #
+
     def search(self, state):
         """Return the chosen column for `state`."""
         return self.search_with_stats(state)["move"]
