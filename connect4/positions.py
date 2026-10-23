@@ -5,6 +5,9 @@ Test positions used by the tests and the experiments (rows are written TOP row f
 
 from .game import ConnectFour, from_rows
 
+# Each entry: name -> {"rows": the board (6 strings, top row first),
+#                      "best": the correct column(s), used only to mark accuracy,
+#                      "note": a description for people}
 POSITIONS = {
     "empty": {
         "rows": None,
@@ -18,7 +21,7 @@ POSITIONS = {
                  ".......",
                  "OO.....",
                  "XXX...O"],
-        "best": [3], # X should play in column 3 to win   
+        "best": [3], # X should play in column 3 to win
         "note": "X completes four in a row on the bottom row",
     },
     "must_block": {
@@ -45,7 +48,8 @@ POSITIONS = {
 
 
 def load(name):
-    spec = POSITIONS[name]
-    if spec["rows"] is None:
-        return ConnectFour().initial
-    return from_rows(spec["rows"])
+    # Turn a position's name (e.g. "double_threat") into a game state.
+    spec = POSITIONS[name]                 # look up its entry in the dictionary
+    if spec["rows"] is None:               # "empty" has no rows:
+        return ConnectFour().initial       #   use the normal starting board
+    return from_rows(spec["rows"])         # otherwise build the board from the 6 strings
