@@ -56,14 +56,14 @@ class State:
         return "\n".join(lines)
 
 
-def wins_at(cell, col, row, player):
+def wins_at(cell, col, row, player): # ,2,0,X
     """True if `player` has 4 in a row through (col, row). `cell(c, r)` returns the piece."""
     # Only lines through the piece just played can be new wins, so we check
     # the 4 directions starting from that one cell.
     for dc, dr in DIRECTIONS:                      # e.g. (1, 0) = left/right
         count = 1                                  # the piece itself
         for sign in (1, -1):                       # walk forwards, then backwards
-            c, r = col + sign * dc, row + sign * dr
+            c, r = col + sign * dc, row + sign * dr # col + 1 * 1, row + 1 * 0 for right horizontal
             # keep stepping while we stay on the board and see the same player's piece
             while 0 <= c < COLS and 0 <= r < ROWS and cell(c, r) == player:
                 count += 1
@@ -88,8 +88,11 @@ class ConnectFour:
         # Legal moves = columns that are not full yet. No moves once the game is over.
         if self.is_terminal(state):
             return []
-        return [c for c in range(COLS) if len(state.cols[c]) < ROWS]
-
+        return [c for c in range(COLS) if len(state.cols[c]) < ROWS] # if (len(state.cols[c]) < ROWS) is true then it will add the
+                                                                      # column c to the list of legal moves for example when c = 0 
+                                                                      # it checks state.cols[0] which is the first column and if its 
+                                                                      # length is less than 6 it will add it to the list of legal moves so for first one it returns [0,1,2,3,4,5,6]
+                                                                      
     def result(self, state, move):
         # Drop the current player's piece into column `move` and return the NEW state.
         if move not in self.actions(state):

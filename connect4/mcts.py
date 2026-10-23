@@ -155,7 +155,7 @@ class MCTS:
     # ------------------------------------------------------------------ #
     def _make_node(self, state, parent, move, depth):
         # Heuristic score of this board for the player who just moved (the root gets 0).
-        objective = evaluate(state, other(state.to_move)) if parent is not None else 0.0
+        objective = evaluate(state, other(state.to_move)) if parent is not None else 0.0 # when parent is NONE it returns 0.0
         node = Node(state, parent, move, depth, objective=objective)
         # Give the node a to-do list, unless the game is over or it's at the height limit.
         if not self.game.is_terminal(state) and depth < self.config.max_depth:
@@ -171,8 +171,44 @@ class MCTS:
             return moves[:k]
         me = state.to_move                            # score moves from this player's view
         # For each column: (heuristic score after playing it, random tie-breaker, column)
-        scored = [(evaluate(self.game.result(state, m), me), self.rng.random(), m) for m in moves]
+        scored = [(evaluate(self.game.result(state, m), me), self.rng.random(), m) for m in moves]  # self.game.result(state, 0): drops X into column 0 and returns a new board
+        # evaluate(that board, "X"): scores it for X. Raw 8, so tanh(8/60) = 0.133. 
+        # self.rng.random(): a random float like 0.42. Used only when scores are equal.
+        # m: the column number (e.g. 0, 1, 2, ...). Used to remember which move this score came from.
+        # The list is sorted from highest total score (0.133 + 0.42) downwards, so the best move comes first.
+
+        """
+        The heuristic function (evaluate) gives a number for how good a board is for a player.
+        It is called for each move, and the move that gives the best score is chosen.
+        The random part is used to break ties between moves that have the same heuristic score. 
+        The move is the actual column number that will be played. 
+
+        For example, if the heuristic function evaluates the board after a move and gives it a 
+        score of 0.8, it means that the move is good for the player who made it.
+
+        [(0.133, 0.134, 0),
+        (0.322, 0.847, 1),
+        (0.067, 0.764, 2),
+        (0.149, 0.255, 3),
+        (0.366, 0.495, 4),
+        (0.181, 0.449, 5),
+        (-0.017, 0.652, 6)]
+        
+        """
         scored.sort(reverse=True)                     # best score first
+
+        """
+        [(0.366, 0.495, 4),
+        (0.322, 0.847, 1),
+        (0.181, 0.449, 5),
+        (0.149, 0.255, 3),
+        (0.133, 0.134, 0),
+        (0.067, 0.764, 2),
+        (-0.017, 0.652, 6)]
+        
+        The heuristic scores are sorted in descending order, so the move with the
+        highest heuristic score comes first. 
+        """
         return [m for _, _, m in scored[:k]]          # keep the top x columns
 
     def _count(self, node):
